@@ -1,0 +1,40 @@
+services:
+  admin_client:
+    build:
+      context: ./ADMIN_CLIENT
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    networks:
+      - mern-network
+
+  provider_client:
+    build:
+      context: ./PROVIDER_CLIENT
+      dockerfile: Dockerfile
+    ports:
+      - "5174:5174"
+    networks:
+      - mern-network
+
+  user_client:
+    build:
+      context: ./USER_CLIENT
+      dockerfile: Dockerfile
+    ports:
+      - "5175:5175"
+    networks:
+      - mern-network
+
+  server:
+    build:
+      context: ./USER_PROVIDER_SERVER
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+
+networks:
+  mern-network:
+    driver: bridge
